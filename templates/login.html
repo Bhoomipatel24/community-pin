@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+    <use xlink:href="#exclamation-triangle-fill" />
+  </svg>
+  <span>{{ message }}</span>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- <div class="container">
+  <div class="row">
+    <h1>Login</h1>
+    <form action="/login" method="post">
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" required><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</div> -->
+<section class="body-container pb-4">
+  <div class="container pt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h1 class="mb-4 title">Login</h1>
+        <form action="/login" method="post">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <button type="submit" class="btn my-button">Login</button>
+        </form>
+        <p class="mt-2">
+          <a href="/google-login"><button type="button" class="login-with-google-btn">
+              Log in with Google
+            </button></a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row justify-content-center mt-3">
+    <div class="col-md-6 text-center">
+      <div class="col-md-6">
+        <p class="font-weight-bold">Or</p>
+        <p>
+          <a href="/google-login"><button type="button" class="login-with-google-btn">
+              Log in with Google
+            </button></a>
+        </p>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-5 ">
+        <p class="navigate-to-other-page">Need to create an account? <a href="/signup">Click Here</a></p>
+      </div>
+
+    </div>
+  </div> -->
+</section>
+
+
+</div>
+{% endblock %}
+{% block js %}
+<script>
+</script>
+{% endblock %}

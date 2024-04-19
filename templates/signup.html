@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %} Sign Up {% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+    <use xlink:href="#exclamation-triangle-fill" />
+  </svg>
+  <span>{{ message }}</span>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<section class="body-container pb-4">
+  <div class="container">
+    <div class="row">
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <h1 class="mb-4 title">Sign Up</h1>
+            <form action="/signup" method="post">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" minlength="6" required>
+              </div>
+              <div class="mb-3">
+                <label for="confirm-password" class="form-label">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+              </div>
+              <div class="mb-3">
+                <label for="account-type" class="form-label">Account Type:</label>
+                <select class="form-select" id="account-type" name="account-type" required>
+                  <option value="" selected disabled>Select Account Type</option>
+                  <option value="personal">Personal</option>
+                  <option value="business">Business</option>
+                </select>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="agree-checkbox" required>
+                <label class="form-check-label" for="agree-checkbox">I am above 18</label>
+              </div>
+              <button type="submit" class="btn my-button" id="signup-btn" disabled>Sign Up</button>
+            </form>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-6 ">
+            <p class="navigate-to-other-page">Already have an account? <a href="/login">Click Here</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+  const agreeCheckbox = document.getElementById('agree-checkbox');
+  const signupBtn = document.getElementById('signup-btn');
+  agreeCheckbox.addEventListener('change', function () {
+    signupBtn.disabled = !this.checked;
+  });
+</script>
+{% endblock %}

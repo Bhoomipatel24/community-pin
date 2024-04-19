@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+<h1>{% block title %} Home Page {% endblock %}</h1>
+
+{% block content %}
+<section class="banner_main">
+  <div class="overlay"></div>
+  <div class="container-fluid">
+    <div class="row d_flex">
+      <div class="col">
+        <div class="text-bg text-center">
+          <div class="padding_lert">
+            <h1>East City Peterborough</h1>
+            <!-- <a href="#">Read More</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="footer-icons pt-3">
+  <div class="container-fluid">
+    <div class="row justify-content-end">
+
+      <div class="col-sm-2 text-right">
+        <a href="/profile">
+          <p class='text-center icon'><span class="material-symbols-outlined">
+              person
+            </span></p>
+          <p class='text-center'>User Profile</p>
+        </a>
+      </div>
+
+      <div class="col-sm-2 text-right">
+        <a href="/neighbourhood">
+          <p class='text-center icon'>
+            <span class="material-symbols-outlined">
+              map
+            </span>
+          </p>
+          <p class='text-center'>Neighbourhood Hub</p>
+        </a>
+      </div>
+      <div class="col-sm-2 text-right">
+        <p class='text-center icon'>
+          <span class="material-symbols-outlined">
+            person_pin_circle
+          </span>
+        </p>
+        <p class='text-center'>Map</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
