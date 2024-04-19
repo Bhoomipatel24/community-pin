@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+<h1>{% block title %} Approve news {% endblock %}</h1>
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+    <use xlink:href="#exclamation-triangle-fill" />
+  </svg>
+  <span>{{ message }}</span>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<div class="container">
+  <h1 class="title mt-5 mb-2">Approve news</h1>
+  {% if not news %}
+  <p>No news in pending state</p>
+  {% else %}
+  <div>
+    {% for single_news in news %}
+    <div>
+      <h3>{{ single_news.title }}</h3>
+      <p>{{ single_news.body }}</p>
+      <form method="post" action="{{ url_for('general_bp.approve_news') }}">
+        <input type="hidden" name="news_id" value="{{ single_news.id }}">
+        <!-- Button to open modal for approval confirmation -->
+        <button type="button" class="btn btn-success fix-len-button" data-bs-toggle="modal"
+          data-bs-target="#approveModal{{ single_news.id }}">Approve</button>
+        <!-- Modal for approval confirmation -->
+        <div class="modal fade" id="approveModal{{ single_news.id }}" tabindex="-1" aria-labelledby="approveModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="approveModalLabel">Confirm Approval</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to approve this news?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" name="value" value="approve" class="btn btn-success">Approve</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Button to open modal for rejection -->
+        <button type="button" class="btn btn-danger fix-len-button" data-bs-toggle="modal"
+          data-bs-target="#rejectModal{{ single_news.id }}">Reject</button>
+        <!-- Modal for rejection details -->
+        <div class="modal fade" id="rejectModal{{ single_news.id }}" tabindex="-1" aria-labelledby="rejectModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" name="news_id" value="{{ single_news.id }}">
+                <div class="mb-3">
+                  <label for="rejection_reason" class="form-label">Reason for rejection</label>
+                  <textarea class="form-control" id="rejection_reason" name="rejection_reason" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" name="value" value="reject" class="btn btn-danger">Reject News</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <hr>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

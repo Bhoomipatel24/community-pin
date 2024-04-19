@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+<h1>{% block title %} Add news {% endblock %}</h1>
+
+{% block content %}
+<div class="container">
+  <h1 class="title mt-5 mb-2">Create Post</h1>
+  <form action="/add-news" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="news-title" class="form-label">Title:</label>
+      <input type="text" class="form-control" id="news-title" name="news-title" required>
+    </div>
+    <div class="mb-3">
+      <label for="news-body" class="form-label">Body:</label>
+      <textarea class="form-control" id="news-body" name="news-body" rows="5" style="min-height: 400px;"
+        required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="account-type" class="form-label">Type:</label>
+      <select class="form-select" id="news-type" name="news-type" required>
+        <option value="" selected disabled>Select type of post</option>
+        <option value="local-news">Local News</option>
+        <option value="general">General</option>
+        <option value="item-free">Item for Free</option>
+        <option value="missing-animal">Missing Animal</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="news-image" class="form-label">Select Image:</label>
+      <input type="file" class="form-control" id="news-image" name="news-image" accept="image/*">
+    </div>
+
+    <button type="submit" class="btn my-button">Create Post</button>
+  </form>
+</div>
+{% endblock %}
