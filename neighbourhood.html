@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+<h1>{% block title %} News {% endblock %}</h1>
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+    <use xlink:href="#exclamation-triangle-fill" />
+  </svg>
+  <span>{{ message }}</span>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+  <h1 class="title mt-5 mb-2">Neighbourhood Hub</h1>
+  <p class="navigate-to-other-page mb-5">Want to share your own news? <a href="/add-news">Click Here</a></p>
+  <div class="row">
+    {%if news %}
+    {% for news_item in news %}
+    <div class="col-md-3">
+      <div class="card mb-3">
+        {% if news_item.get('img') %}
+        <img src="../../../static/uploads/{{news_item['img']}}" class="card-img-top fixed-height-img" alt="...">
+        {% else %}
+        <img src="../../../static/img/download.jpeg" class="card-img-top fixed-height-img" alt="...">
+        {% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title">{{news_item['title']}}</h5>
+          <p class="card-text">
+            {{news_item['body'][:200]}}
+          </p>
+          <a href="/news/{{news_item['id']}}" class="btn my-button">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <p class="navigate-to-other-page mb-5">No news at the moment to display</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

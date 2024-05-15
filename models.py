@@ -3,6 +3,10 @@ from extension import db
 from sqlalchemy import CheckConstraint
 
 
+user_likes = db.Table('likes',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('news_id', db.Integer, db.ForeignKey('news.id'))
+)
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -32,3 +36,6 @@ class News(db.Model):
 
     # FK for checking getting individual user news
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+
+     likes = db.relationship('User', secondary=user_likes, backref='user_liked_news')
